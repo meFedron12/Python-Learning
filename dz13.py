@@ -13,24 +13,23 @@ print("---------------------------")
 
 class Randomize:
 
-    def __init__(self, start_num: int, first_num=None, second_num=None, stop_iteration_num=None):
-        self.start_num = start_num
+    def __init__(self, first_num=None, second_num=None, stop_iteration_num=None):
         self.first_num = first_num
         self.second_num = second_num
         self.stop_iteration_num = stop_iteration_num
 
     def __next__(self):
-        if self.stop_iteration_num is not None and self.start_num > self.stop_iteration_num:
-            raise StopIteration
         result = random.randint(self.first_num, self.second_num)
-        self.start_num += 1
+        if result == self.stop_iteration_num:
+            raise StopIteration
+        result += 1
         return result
 
     def __iter__(self):
         return self
 
 
-random_int = Randomize(20, 30, 40, 25)
+random_int = Randomize(20, 30, 25)
 
 for num in random_int:
     print(num)
@@ -39,19 +38,20 @@ for num in random_int:
 print("---------------------------")
 
 
-def randomize(Start_num, first_num: int = None, second_num: int = None, Stop_num: int = None):
+def randomize(first_num: int, second_num: int, stop_num: int = None):
     while True:
-        if Stop_num is not None and Start_num > Stop_num:
+        result = random.randint(first_num, second_num)
+        if stop_num == result:
             break
-        yield Start_num
-        Start_num += 1
-        print(random.randint(first_num, second_num))
+        result += 1
+        yield result
+    return result
 
 
-random_int_2 = randomize(10, 20, 30, 15)
+random_int_2 = randomize(10, 18, 15)
 
 for num in random_int_2:
-    pass
+    print(num)
 
 
 print("---------------------------")
