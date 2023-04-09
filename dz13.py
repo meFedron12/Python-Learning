@@ -22,7 +22,6 @@ class Randomize:
         result = random.randint(self.first_num, self.second_num)
         if result == self.stop_iteration_num:
             raise StopIteration
-        result += 1
         return result
 
     def __iter__(self):
@@ -43,7 +42,6 @@ def randomize(first_num: int, second_num: int, stop_num: int = None):
         result = random.randint(first_num, second_num)
         if stop_num == result:
             break
-        result += 1
         yield result
     return result
 
